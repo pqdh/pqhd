@@ -7,19 +7,30 @@ One seed phrase should be able to back up keys for any post-quantum scheme, on a
 ## Derivation path
 
 ```
-m/83696968'/<app>'/<coin_type>'/<scheme>'/<account>'/<index>'
+m/83696968'/505153'/<coin_type>'/<scheme>'/<account>'/<index>'
 ```
 
 | Level | Meaning |
 |---|---|
 | `83696968'` | BIP-85 purpose |
-| `<app>'` | BIP-85 application number for this standard |
+| `505153'` | BIP-85 application number for this standard (hex bytes of ASCII `PQS`) |
 | `<coin_type>'` | Chain, from SLIP-44 |
-| `<scheme>'` | Post-quantum scheme and parameter set, from this registry |
+| `<scheme>'` | Post-quantum scheme and parameter set, from the [registry](registry/README.md) |
 | `<account>'` | Account, as in BIP-44 |
 | `<index>'` | Key index, as in BIP-44 |
 
-Every level is hardened. The derived node is turned into key-generation input as defined in the spec.
+Every level is hardened. The BIP-85 entropy at the derived node seeds a SHAKE256 stream (BIP-85-DRNG-SHAKE256), and the registry says how many bytes each scheme reads and how they split into its key-generation inputs. See the [specification](spec/README.md).
+
+## Registry
+
+| Index | Schemes |
+|---|---|
+| 0, 3, 4 | ML-DSA-44, ML-DSA-65, ML-DSA-87 |
+| 2, 5-15 | SLH-DSA, all twelve SHA2 and SHAKE parameter sets |
+| 16-18 | ML-KEM-512, ML-KEM-768, ML-KEM-1024 |
+| 1, 19, 20 | Reserved (19 and 20 for FN-DSA, pending FIPS 206) |
+
+Indices 0-2 mirror Project Eleven's assignments and 3-4 match `pqseed`'s extensions, but pqhd keys differ from Project Eleven's. Full table: [`registry/README.md`](registry/README.md).
 
 ## Repository
 
@@ -36,4 +47,16 @@ Draft. Nothing here is final until the spec reaches v1.0.
 
 ## Adding a scheme
 
-Open a pull request adding an entry to `registry/registry.json` with test vectors in `test-vectors/`.
+Open a pull request adding an entry to `registry/registry.json` and regenerate the registry table and test vectors with `reference/python/gen_vectors.py`. An entry becomes `active` only with test vectors.
+
+## Supporters
+
+Projects and organizations that support or implement pqhd. To be listed, open a pull request adding a row.
+
+| Supporter | Role |
+|---|---|
+| [iqlusion](https://github.com/iqlusioninc) | Implementer: [`pqseed`](https://github.com/iqlusioninc/crates/tree/main/pqseed) Rust crate |
+
+## License
+
+Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT), at your option. Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in this work by you shall be dual licensed as above, without any additional terms or conditions.
