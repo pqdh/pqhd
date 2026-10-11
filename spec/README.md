@@ -107,14 +107,7 @@ scheme, including those with `L <= 64`, so there is a single procedure.
 
 Split `output` into the scheme's `inputs`, consecutively and in registry order,
 and call the scheme's deterministic key-generation function, also named in the
-registry. For example:
-
-- ML-DSA: `ML-DSA.KeyGen_internal(ξ)` with `ξ = output[0..32]` (FIPS 204).
-- SLH-DSA with security parameter `n`:
-  `slh_keygen_internal(SK.seed, SK.prf, PK.seed)` with the three `n`-byte
-  chunks of `output`, in that order (FIPS 205).
-- ML-KEM: `ML-KEM.KeyGen_internal(d, z)` with `d = output[0..32]` and
-  `z = output[32..64]` (FIPS 203).
+registry.
 
 The registry, not this document, is authoritative for `L`, the input layout,
 and the key-generation function of each scheme.
@@ -143,10 +136,6 @@ Rules:
 2. Only `active` entries may be derived. `reserved` entries hold an index for a
    scheme whose standard or input layout is not final.
 3. An entry becomes `active` only with test vectors covering it.
-4. Indices 0-2 mirror Project Eleven's assignments: 0 is ML-DSA-44, 1 is
-   reserved, and 2 is SLH-DSA-SHA2-128s. Indices 3 and 4 match the IDs the
-   `pqseed` crate uses for ML-DSA-65 and ML-DSA-87; Project Eleven has not
-   assigned them. The keys still differ from Project Eleven's; see below.
 
 New schemes are proposed by pull request adding a registry entry and test
 vectors.
@@ -156,7 +145,7 @@ vectors.
 Project Eleven derives keys at `m/83696968'/503131'/alg'` and truncates the
 BIP-85 entropy instead of using the DRNG. pqhd differs in application number,
 path depth, and expansion, so **pqhd keys are never equal to Project Eleven
-keys**, even for the same scheme index. Wallets supporting both MUST keep them
+keys**. Wallets supporting both MUST keep them
 distinct.
 
 ## Security considerations

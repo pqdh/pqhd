@@ -101,8 +101,9 @@ class Mnemonics(unittest.TestCase):
 
     def test_rejects_unhardenable_path(self):
         seed = pqhd.bip39_seed(ABANDON_ART)
-        with self.assertRaises(pqhd.DerivationError):
-            pqhd.derive(seed, 2**31, 0, 0, 0)
+        for scope in [(2**31, 0, 0, 0), (0, 2**31, 0, 0), (0, 0, 2**31, 0), (0, 0, 0, 2**31)]:
+            with self.assertRaisesRegex(pqhd.DerivationError, "not below 2"):
+                pqhd.bip85_entropy(seed, pqhd.path(*scope))
 
 
 class Registry(unittest.TestCase):

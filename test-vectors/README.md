@@ -27,15 +27,10 @@ independent source:
 | BIP-32 hardened derivation and BIP-85 entropy | The BIP-85 specification's derived-key and derived-entropy vectors |
 | BIP-85-DRNG-SHAKE256 | The BIP-85 specification's DRNG vector |
 | BIP-39 seed, BIP-32, and BIP-85 at Project Eleven's paths | Seeds generated with `@scure/bip39`, `@scure/bip32`, and `@noble/hashes` |
-| Public-key encoding | RustCrypto `ml-dsa` 0.1.1 and `slh-dsa` 0.2.0-rc.5 match `@noble/post-quantum` 0.6.1 on the Project Eleven seeds |
 
 The composed pqhd output (application `505153'` plus the DRNG) has so far been
 produced by this one implementation only. A second implementation should
-reproduce these files before v1.0; the Rust `pqseed` crate is intended to be
-the first.
-
-`public_key_sha256` is computed with RustCrypto `ml-dsa` 0.1.1 and `slh-dsa`
-0.2.0-rc.5 from the `output` field. ML-KEM cases have no public-key hashes yet.
+reproduce these files before v1.0.
 
 Regenerate with `python3 gen_vectors.py [--pk-hashes <file>]` from
 `reference/python`; without the flag, existing hashes are kept. The test suite

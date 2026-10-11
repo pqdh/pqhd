@@ -21,17 +21,6 @@ m/83696968'/505153'/<coin_type>'/<scheme>'/<account>'/<index>'
 
 Every level is hardened. The BIP-85 entropy at the derived node seeds a SHAKE256 stream (BIP-85-DRNG-SHAKE256), and the registry says how many bytes each scheme reads and how they split into its key-generation inputs. See the [specification](spec/README.md).
 
-## Registry
-
-| Index | Schemes |
-|---|---|
-| 0, 3, 4 | ML-DSA-44, ML-DSA-65, ML-DSA-87 |
-| 2, 5-15 | SLH-DSA, all twelve SHA2 and SHAKE parameter sets |
-| 16-18 | ML-KEM-512, ML-KEM-768, ML-KEM-1024 |
-| 1, 19, 20 | Reserved (19 and 20 for FN-DSA, pending FIPS 206) |
-
-Indices 0-2 mirror Project Eleven's assignments and 3-4 match `pqseed`'s extensions, but pqhd keys differ from Project Eleven's. Full table: [`registry/README.md`](registry/README.md).
-
 ## Repository
 
 | Path | Contents |
