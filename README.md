@@ -27,10 +27,10 @@ Every level is hardened. The BIP-85 entropy at the derived node seeds a SHAKE256
 |---|---|
 | 0, 3, 4 | ML-DSA-44, ML-DSA-65, ML-DSA-87 |
 | 2, 5-15 | SLH-DSA, all twelve SHA2 and SHAKE parameter sets |
-| 16-18 | ML-KEM-512, ML-KEM-768, ML-KEM-1024 |
+| 16-18 | ML-KEM-512, ML-KEM-768, ML-KEM-1024 (key encapsulation, for encryption) |
 | 1, 19, 20 | Reserved (19 and 20 for FN-DSA, pending FIPS 206) |
 
-This covers every final NIST post-quantum signature standard that suits seed-based derivation. Stateful hash-based signatures (LMS/XMSS, SP 800-208) are excluded because SP 800-208 forbids exporting their key material and a mnemonic can't restore their state; see the [spec](spec/README.md#coverage-and-exclusions).
+This covers every final NIST post-quantum signature standard that suits seed-based derivation, plus ML-KEM for encryption. Stateful hash-based signatures (LMS/XMSS, SP 800-208) are excluded because SP 800-208 forbids exporting their key material and a mnemonic can't restore their state; see the [spec](spec/README.md#coverage-and-exclusions).
 
 Indices 0-2 mirror Project Eleven's assignments and 3-4 match `pqseed`'s extensions, but pqhd keys differ from Project Eleven's. Full table: [`registry/README.md`](registry/README.md).
 

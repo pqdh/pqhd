@@ -153,9 +153,12 @@ vectors.
 
 ### Coverage and exclusions
 
-The registry covers every final NIST post-quantum signature standard suitable
-for seed-based derivation: ML-DSA (FIPS 204) and SLH-DSA (FIPS 205), all
-parameter sets. It also covers ML-KEM (FIPS 203).
+For signatures, the registry covers every final NIST post-quantum signature
+standard suitable for seed-based derivation: ML-DSA (FIPS 204) and SLH-DSA
+(FIPS 205), all parameter sets. For encryption, it covers the NIST
+key-encapsulation mechanism ML-KEM (FIPS 203), so wallets can derive keys for
+receiving encrypted data from the same mnemonic. A KEM key and a signature key
+never share a path, because they have different scheme indices.
 
 - **FN-DSA** (FIPS 206) holds reserved indices until FIPS 206 is final. Its key
   generation consumes a variable amount of randomness, so its entries may need
