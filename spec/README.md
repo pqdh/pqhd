@@ -56,8 +56,15 @@ its checksum, and MUST reject mnemonics that do not have exactly 24 words.
 Implementations MUST support the English wordlist.
 
 The 64-byte `seed` is computed as in BIP-39: PBKDF2-HMAC-SHA512 with 2048
-iterations, password the NFKD-normalized mnemonic sentence (words separated by
-a single U+0020 space), and salt `"mnemonic" || NFKD(passphrase)`.
+iterations, the canonical mnemonic sentence as the password, and salt
+`"mnemonic" || NFKD(passphrase)`.
+
+The canonical mnemonic sentence is formed by NFKD-normalizing the input,
+splitting it on whitespace, and joining the words with a single U+0020 space.
+Leading, trailing, and repeated whitespace in the input therefore does not
+affect the seed. This is required because PBKDF2 hashes the exact bytes of the
+sentence, and BIP-39 does not say how to treat irregular whitespace. Whitespace
+in the passphrase is significant and is not altered beyond NFKD normalization.
 
 ### Step 2: BIP-32 path
 
