@@ -128,35 +128,49 @@ and the key-generation function of each scheme.
 
 ## Registry
 
-The [registry] assigns scheme indices. Each entry has:
+The [registry] assigns scheme indices in blocks. Each scheme family, such as
+ML-DSA, owns a block of `block_size` (100) consecutive indices starting at
+`100 * block`, and each of its parameter sets takes the next free index in that
+block. ML-KEM is block 1 (indices 100-199), ML-DSA block 2, SLH-DSA block 3,
+and FN-DSA block 4. Block 0 is never assigned.
 
-| Field | Meaning |
-|-------|---------|
-| `index` | Scheme index, the `scheme'` path level |
-| `name` | Scheme and parameter set |
-| `family` | Scheme family, e.g. `ML-DSA` |
+Fields shared by every parameter set of a family are stated once, on the
+family:
+
+| Family field | Meaning |
+|--------------|---------|
+| `block` | Block number; the family's indices are `100 * block` to `100 * block + 99` |
+| `name` | Family name, e.g. `ML-DSA` |
 | `type` | `signature` or `kem` |
 | `standard` | The defining standard |
+| `keygen` | The deterministic key-generation function, absent until the standard is final |
+
+Each parameter set is an entry:
+
+| Entry field | Meaning |
+|-------------|---------|
+| `index` | Scheme index, the `scheme'` path level |
+| `name` | Scheme and parameter set |
+| `family` | Name of its family |
+| `oid` | The parameter set's object identifier, where one is assigned |
 | `security_category` | NIST security category |
 | `status` | `active`, `reserved`, or `deprecated` |
 | `output_bytes` | `L`, the number of DRNG bytes to read |
-| `keygen` | The deterministic key-generation function |
 | `inputs` | Ordered list of `{name, bytes}`; lengths sum to `output_bytes` |
 
 Rules:
 
-1. Indices are assigned sequentially, are append-only, and are never reused or
-   reassigned, including after deprecation.
-2. Only `active` entries may be derived. `reserved` entries hold an index for a
+1. A new family takes the next unused block. A new parameter set takes the next
+   unused index in its family's block. If a family fills its block, it is
+   assigned an additional block.
+2. Indices are append-only and are never reused or reassigned, including after
+   deprecation.
+3. Only `active` entries may be derived. `reserved` entries hold an index for a
    scheme whose standard or input layout is not final.
-3. An entry becomes `active` only with test vectors covering it.
-4. Indices 0-2 mirror Project Eleven's assignments: 0 is ML-DSA-44, 1 is
-   reserved, and 2 is SLH-DSA-SHA2-128s. Indices 3 and 4 match the IDs the
-   `pqseed` crate uses for ML-DSA-65 and ML-DSA-87; Project Eleven has not
-   assigned them. The keys still differ from Project Eleven's; see below.
+4. An entry becomes `active` only with test vectors covering it.
 
-New schemes are proposed by pull request adding a registry entry and test
-vectors.
+New schemes are proposed by pull request adding a registry entry, and a family
+if needed, with test vectors.
 
 ### Coverage and exclusions
 
@@ -183,7 +197,7 @@ never share a path, because they have different scheme indices.
 Project Eleven derives keys at `m/83696968'/503131'/alg'` and truncates the
 BIP-85 entropy instead of using the DRNG. pqhd differs in application number,
 path depth, and expansion, so **pqhd keys are never equal to Project Eleven
-keys**, even for the same scheme index. Wallets supporting both MUST keep them
+keys**. Wallets supporting both MUST keep them
 distinct.
 
 ## Security considerations

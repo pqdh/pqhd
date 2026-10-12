@@ -1,0 +1,160 @@
+{
+  "scheme": 303,
+  "name": "SLH-DSA-SHA2-192f",
+  "registry_version": "0.1.0",
+  "cases": [
+    {
+      "mnemonic": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art",
+      "passphrase": "",
+      "seed": "408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840",
+      "coin_type": 0,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/0'/303'/0'/0'",
+      "bip85_entropy": "9cea05efb16c4fbe254e2858554b026ca0edb5a0beccf5bbeffb233dc750494c076f171cbf01588ba7177d00c48ae2f509d708a74db882d686b4465521051f4e",
+      "output": "255bab80236d65c6b475aa9f454ceee7f2ad7322e594e4e4ee66a91ead89c83bf0e753c9867cc542c7a63868a9cdda7cceff7c1dad306e17414e1feffe93e4319bd13f3d29677eb1",
+      "inputs": {
+        "SK.seed": "255bab80236d65c6b475aa9f454ceee7f2ad7322e594e4e4",
+        "SK.prf": "ee66a91ead89c83bf0e753c9867cc542c7a63868a9cdda7c",
+        "PK.seed": "ceff7c1dad306e17414e1feffe93e4319bd13f3d29677eb1"
+      },
+      "public_key_sha256": "6ecabd0bf35ffb4c2c940edd2ca9876ed4e4ad3968d3322aa071a3dbccc88743"
+    },
+    {
+      "mnemonic": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art",
+      "passphrase": "",
+      "seed": "408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840",
+      "coin_type": 133,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/133'/303'/0'/0'",
+      "bip85_entropy": "dc95aa60ba086a1dd126d84324d6f417439b5ddddb3035b610b1bf52186f0afd887f972f5406f6c8e099e6a755f12fdf8ac58978365bc1b7503879516d954865",
+      "output": "7f0fdeee8006030e723081606d24386b0eab607c5e5c6cbfd53138cba9ee26dc52639bf90b128d965d0038b7a122657063f49641021118737d62258f7659cc7bbc4b1b072f2cd05b",
+      "inputs": {
+        "SK.seed": "7f0fdeee8006030e723081606d24386b0eab607c5e5c6cbf",
+        "SK.prf": "d53138cba9ee26dc52639bf90b128d965d0038b7a1226570",
+        "PK.seed": "63f49641021118737d62258f7659cc7bbc4b1b072f2cd05b"
+      },
+      "public_key_sha256": "3f47326c1e39a679b284a938af0eccd050e1f05070de832279d9c498377198f4"
+    },
+    {
+      "mnemonic": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art",
+      "passphrase": "",
+      "seed": "408b285c123836004f4b8842c89324c1f01382450c0d439af345ba7fc49acf705489c6fc77dbd4e3dc1dd8cc6bc9f043db8ada1e243c4a0eafb290d399480840",
+      "coin_type": 60,
+      "account": 1,
+      "index": 7,
+      "path": "m/83696968'/505153'/60'/303'/1'/7'",
+      "bip85_entropy": "89b1eed28938510f38f27c51aba370c3de340221b9741aa38c73d2dbe23e77943a04cc6426e6ecef9d5762375c5541e229bdfc809f5dd52b04c808fa9c4ae870",
+      "output": "7b266f6f419868b6518df4e4faa81a69bebaae1b9ecec96fc8ddeda56bae58f6fefb67346fc17e3d75bf822b752722d78f1acf7cc24b6a340bd68464abb034aafe1acf29db5e5bf5",
+      "inputs": {
+        "SK.seed": "7b266f6f419868b6518df4e4faa81a69bebaae1b9ecec96f",
+        "SK.prf": "c8ddeda56bae58f6fefb67346fc17e3d75bf822b752722d7",
+        "PK.seed": "8f1acf7cc24b6a340bd68464abb034aafe1acf29db5e5bf5"
+      },
+      "public_key_sha256": "08a8900aa5c4d6980183e96775ac114eaf5c4558632a73531767b561e652c1eb"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "TREZOR",
+      "seed": "e00fc08b7fa18c78eb9a943c2ce3903eb52d2590be5aadfe83b39465ac66c3a6490a134828a61d311d62974b4ce0708d9a714c529f3e45b296640a9297c6f383",
+      "coin_type": 0,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/0'/303'/0'/0'",
+      "bip85_entropy": "7e7287409b1cec1417b6fd9c53d81c1a767e08d8985e86559ee01b35d891f582cbb4704a89adcdd77c65cedf55439bfd84adad044b4ba4649f424683703365bb",
+      "output": "cad575ea9ab6bd152c6e8c2b31836f1bdcdfd2d0817b470eab8e144e8d8891031f9b573ee40dfaad3761555c399770721505e87e42d5859766f91f00230445e3c44b864e17744929",
+      "inputs": {
+        "SK.seed": "cad575ea9ab6bd152c6e8c2b31836f1bdcdfd2d0817b470e",
+        "SK.prf": "ab8e144e8d8891031f9b573ee40dfaad3761555c39977072",
+        "PK.seed": "1505e87e42d5859766f91f00230445e3c44b864e17744929"
+      },
+      "public_key_sha256": "744296228028db5c8e9938106d01ac3502e535ca2fe810e19773a2d004c4c72c"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "TREZOR",
+      "seed": "e00fc08b7fa18c78eb9a943c2ce3903eb52d2590be5aadfe83b39465ac66c3a6490a134828a61d311d62974b4ce0708d9a714c529f3e45b296640a9297c6f383",
+      "coin_type": 133,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/133'/303'/0'/0'",
+      "bip85_entropy": "180151a94c92b2cf59264b354a1b4061241e9a6c5e19dcc1d5056a63647ca77d2f1baf21bbd48448e3374bcd59c43e3e56ec60b8c3241fa2f219bc3c890a6722",
+      "output": "59987c531d9b84c9fd2dd8e13613be7ca2051ab8f91d1516d8de6a271e3c10a43ccd513a683b4974c0f7a0c7737f8390c29868fd29e3ef77c38f2a4b2152c04f099895ba0960bb8d",
+      "inputs": {
+        "SK.seed": "59987c531d9b84c9fd2dd8e13613be7ca2051ab8f91d1516",
+        "SK.prf": "d8de6a271e3c10a43ccd513a683b4974c0f7a0c7737f8390",
+        "PK.seed": "c29868fd29e3ef77c38f2a4b2152c04f099895ba0960bb8d"
+      },
+      "public_key_sha256": "9c02ca6e3202aedf2ea23137e1f1ae382af43ad91a88d1da282fb644358072ff"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "TREZOR",
+      "seed": "e00fc08b7fa18c78eb9a943c2ce3903eb52d2590be5aadfe83b39465ac66c3a6490a134828a61d311d62974b4ce0708d9a714c529f3e45b296640a9297c6f383",
+      "coin_type": 60,
+      "account": 1,
+      "index": 7,
+      "path": "m/83696968'/505153'/60'/303'/1'/7'",
+      "bip85_entropy": "67702bb5fba292fb64d3da0e23ebaf3e83be88a31a2f693e24b0578ec735a6fc91c3d9f2a0c319830fe6660a9ca50cee656ea3c126fce6613f582352117554d4",
+      "output": "5f8a0f00426fe8062beca6991fdac19aae5d1863963db191701af9fe667e5dad62d92fada389bf6d6219ea02ced5e92c92972de9f825552becb747fec09b1231ef70d0aad8f619d7",
+      "inputs": {
+        "SK.seed": "5f8a0f00426fe8062beca6991fdac19aae5d1863963db191",
+        "SK.prf": "701af9fe667e5dad62d92fada389bf6d6219ea02ced5e92c",
+        "PK.seed": "92972de9f825552becb747fec09b1231ef70d0aad8f619d7"
+      },
+      "public_key_sha256": "4b430a05c26e0716905a5276da55713edb872ba580afa74e143bbee098de642e"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "café",
+      "seed": "de56ff0e9536e7185f43246276662657ad42281537ff332cb9e493897a4776367be422b8fae0dcd752e3cd3d9ac5a533cbbe07ef83a24af90c8d0cb5d4bc4713",
+      "coin_type": 0,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/0'/303'/0'/0'",
+      "bip85_entropy": "b772151db5f41f3dfaf7bc68a59fcbf7f5f677cc40109c52f97088c6dd24eff8fda41fb2466337c9a048866f43242c58b12f78486391ab2d7e635ebe69c958c5",
+      "output": "56d43b0bf53273e1ee6b3ffbdb0d93cc707236c3a0abfdc0c498872f0679dc916f955b3e9142353fc515bbc75b3e78061a7213d684225c78e559280c5ebb4cffbd6fd2ca12fb7f87",
+      "inputs": {
+        "SK.seed": "56d43b0bf53273e1ee6b3ffbdb0d93cc707236c3a0abfdc0",
+        "SK.prf": "c498872f0679dc916f955b3e9142353fc515bbc75b3e7806",
+        "PK.seed": "1a7213d684225c78e559280c5ebb4cffbd6fd2ca12fb7f87"
+      },
+      "public_key_sha256": "6f574bcd46cfce461e16b34cd8f95baa6e0c6dfe0d7b74f08ad54baa54ac4f1c"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "café",
+      "seed": "de56ff0e9536e7185f43246276662657ad42281537ff332cb9e493897a4776367be422b8fae0dcd752e3cd3d9ac5a533cbbe07ef83a24af90c8d0cb5d4bc4713",
+      "coin_type": 133,
+      "account": 0,
+      "index": 0,
+      "path": "m/83696968'/505153'/133'/303'/0'/0'",
+      "bip85_entropy": "48ea92fc2143541a06e46b5d52b289c4884d629e3c5fcb4e6ed437d8a1273cade61f240bfde8cf96f3fdee9b900a0522054ab6a3b7f71504f0f16e37c5abfda0",
+      "output": "a688dacfad5b4dff088ca21a8d4131aaa7c8a63fda2cbdbfe02731321168272f54d6f753522fcf6803289b5094e282b42f56dd8337fefba86d5854b858afed413b773458ce83dc6f",
+      "inputs": {
+        "SK.seed": "a688dacfad5b4dff088ca21a8d4131aaa7c8a63fda2cbdbf",
+        "SK.prf": "e02731321168272f54d6f753522fcf6803289b5094e282b4",
+        "PK.seed": "2f56dd8337fefba86d5854b858afed413b773458ce83dc6f"
+      },
+      "public_key_sha256": "2bf393f8659c0b52016bd8971856b9d48557d9c0751e4687ea4da6d0d60a040a"
+    },
+    {
+      "mnemonic": "abandon amount liar amount expire adjust cage candy arch gather drum bullet absurd math era live bid rhythm alien crouch range attend journey unaware",
+      "passphrase": "café",
+      "seed": "de56ff0e9536e7185f43246276662657ad42281537ff332cb9e493897a4776367be422b8fae0dcd752e3cd3d9ac5a533cbbe07ef83a24af90c8d0cb5d4bc4713",
+      "coin_type": 60,
+      "account": 1,
+      "index": 7,
+      "path": "m/83696968'/505153'/60'/303'/1'/7'",
+      "bip85_entropy": "c729fed6af557333af79a6185021686f9359f434458e9bbb990e7677ea096f48fd2f4dc06ccc167c2c31d8fa59baee3cf21b0861cddbf94b199d52672aa260ea",
+      "output": "cc39c05adc35db5b692c64b74a7898b5189a2f87da44a7c1d04d214ec267ac804c7157f5ea14a149befd847edf36df4d9c9db916bd598186fb6afc2c57aa5090423cf5cc49f5d9f2",
+      "inputs": {
+        "SK.seed": "cc39c05adc35db5b692c64b74a7898b5189a2f87da44a7c1",
+        "SK.prf": "d04d214ec267ac804c7157f5ea14a149befd847edf36df4d",
+        "PK.seed": "9c9db916bd598186fb6afc2c57aa5090423cf5cc49f5d9f2"
+      },
+      "public_key_sha256": "feb90da6d37b3167bfb542de317d9fbba9becc2eb0ff7884260e4b5aadd7e446"
+    }
+  ]
+}

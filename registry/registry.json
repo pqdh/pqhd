@@ -1,17 +1,102 @@
 {
   "version": "0.1.0",
   "app": 505153,
-  "entries": [
+  "block_size": 100,
+  "families": [
     {
-      "index": 0,
-      "name": "ML-DSA-44",
-      "family": "ML-DSA",
+      "block": 1,
+      "name": "ML-KEM",
+      "type": "kem",
+      "standard": "FIPS 203",
+      "keygen": "ML-KEM.KeyGen_internal"
+    },
+    {
+      "block": 2,
+      "name": "ML-DSA",
       "type": "signature",
       "standard": "FIPS 204",
+      "keygen": "ML-DSA.KeyGen_internal"
+    },
+    {
+      "block": 3,
+      "name": "SLH-DSA",
+      "type": "signature",
+      "standard": "FIPS 205",
+      "keygen": "slh_keygen_internal"
+    },
+    {
+      "block": 4,
+      "name": "FN-DSA",
+      "type": "signature",
+      "standard": "FIPS 206 (draft)"
+    }
+  ],
+  "entries": [
+    {
+      "index": 100,
+      "name": "ML-KEM-512",
+      "family": "ML-KEM",
+      "oid": "2.16.840.1.101.3.4.4.1",
+      "security_category": 1,
+      "status": "active",
+      "output_bytes": 64,
+      "inputs": [
+        {
+          "name": "d",
+          "bytes": 32
+        },
+        {
+          "name": "z",
+          "bytes": 32
+        }
+      ]
+    },
+    {
+      "index": 101,
+      "name": "ML-KEM-768",
+      "family": "ML-KEM",
+      "oid": "2.16.840.1.101.3.4.4.2",
+      "security_category": 3,
+      "status": "active",
+      "output_bytes": 64,
+      "inputs": [
+        {
+          "name": "d",
+          "bytes": 32
+        },
+        {
+          "name": "z",
+          "bytes": 32
+        }
+      ]
+    },
+    {
+      "index": 102,
+      "name": "ML-KEM-1024",
+      "family": "ML-KEM",
+      "oid": "2.16.840.1.101.3.4.4.3",
+      "security_category": 5,
+      "status": "active",
+      "output_bytes": 64,
+      "inputs": [
+        {
+          "name": "d",
+          "bytes": 32
+        },
+        {
+          "name": "z",
+          "bytes": 32
+        }
+      ]
+    },
+    {
+      "index": 200,
+      "name": "ML-DSA-44",
+      "family": "ML-DSA",
+      "oid": "2.16.840.1.101.3.4.3.17",
       "security_category": 2,
       "status": "active",
       "output_bytes": 32,
-      "keygen": "ML-DSA.KeyGen_internal",
       "inputs": [
         {
           "name": "xi",
@@ -20,45 +105,13 @@
       ]
     },
     {
-      "index": 1,
-      "status": "reserved",
-      "note": "Reserved, as in Project Eleven's scheme. Indices 0-2 mirror Project Eleven's assignments; 3 and 4 match pqseed's extensions."
-    },
-    {
-      "index": 2,
-      "name": "SLH-DSA-SHA2-128s",
-      "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 1,
-      "status": "active",
-      "output_bytes": 48,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 16
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 16
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 16
-        }
-      ]
-    },
-    {
-      "index": 3,
+      "index": 201,
       "name": "ML-DSA-65",
       "family": "ML-DSA",
-      "type": "signature",
-      "standard": "FIPS 204",
+      "oid": "2.16.840.1.101.3.4.3.18",
       "security_category": 3,
       "status": "active",
       "output_bytes": 32,
-      "keygen": "ML-DSA.KeyGen_internal",
       "inputs": [
         {
           "name": "xi",
@@ -67,15 +120,13 @@
       ]
     },
     {
-      "index": 4,
+      "index": 202,
       "name": "ML-DSA-87",
       "family": "ML-DSA",
-      "type": "signature",
-      "standard": "FIPS 204",
+      "oid": "2.16.840.1.101.3.4.3.19",
       "security_category": 5,
       "status": "active",
       "output_bytes": 32,
-      "keygen": "ML-DSA.KeyGen_internal",
       "inputs": [
         {
           "name": "xi",
@@ -84,15 +135,13 @@
       ]
     },
     {
-      "index": 5,
-      "name": "SLH-DSA-SHAKE-128s",
+      "index": 300,
+      "name": "SLH-DSA-SHA2-128s",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.20",
       "security_category": 1,
       "status": "active",
       "output_bytes": 48,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -109,15 +158,13 @@
       ]
     },
     {
-      "index": 6,
+      "index": 301,
       "name": "SLH-DSA-SHA2-128f",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.21",
       "security_category": 1,
       "status": "active",
       "output_bytes": 48,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -134,40 +181,13 @@
       ]
     },
     {
-      "index": 7,
-      "name": "SLH-DSA-SHAKE-128f",
-      "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 1,
-      "status": "active",
-      "output_bytes": 48,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 16
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 16
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 16
-        }
-      ]
-    },
-    {
-      "index": 8,
+      "index": 302,
       "name": "SLH-DSA-SHA2-192s",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.22",
       "security_category": 3,
       "status": "active",
       "output_bytes": 72,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -184,40 +204,13 @@
       ]
     },
     {
-      "index": 9,
-      "name": "SLH-DSA-SHAKE-192s",
-      "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 3,
-      "status": "active",
-      "output_bytes": 72,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 24
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 24
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 24
-        }
-      ]
-    },
-    {
-      "index": 10,
+      "index": 303,
       "name": "SLH-DSA-SHA2-192f",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.23",
       "security_category": 3,
       "status": "active",
       "output_bytes": 72,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -234,40 +227,13 @@
       ]
     },
     {
-      "index": 11,
-      "name": "SLH-DSA-SHAKE-192f",
-      "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 3,
-      "status": "active",
-      "output_bytes": 72,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 24
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 24
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 24
-        }
-      ]
-    },
-    {
-      "index": 12,
+      "index": 304,
       "name": "SLH-DSA-SHA2-256s",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.24",
       "security_category": 5,
       "status": "active",
       "output_bytes": 96,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -284,40 +250,13 @@
       ]
     },
     {
-      "index": 13,
-      "name": "SLH-DSA-SHAKE-256s",
-      "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 5,
-      "status": "active",
-      "output_bytes": 96,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 32
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 32
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 32
-        }
-      ]
-    },
-    {
-      "index": 14,
+      "index": 305,
       "name": "SLH-DSA-SHA2-256f",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
+      "oid": "2.16.840.1.101.3.4.3.25",
       "security_category": 5,
       "status": "active",
       "output_bytes": 96,
-      "keygen": "slh_keygen_internal",
       "inputs": [
         {
           "name": "SK.seed",
@@ -334,102 +273,154 @@
       ]
     },
     {
-      "index": 15,
-      "name": "SLH-DSA-SHAKE-256f",
+      "index": 306,
+      "name": "SLH-DSA-SHAKE-128s",
       "family": "SLH-DSA",
-      "type": "signature",
-      "standard": "FIPS 205",
-      "security_category": 5,
-      "status": "active",
-      "output_bytes": 96,
-      "keygen": "slh_keygen_internal",
-      "inputs": [
-        {
-          "name": "SK.seed",
-          "bytes": 32
-        },
-        {
-          "name": "SK.prf",
-          "bytes": 32
-        },
-        {
-          "name": "PK.seed",
-          "bytes": 32
-        }
-      ]
-    },
-    {
-      "index": 16,
-      "name": "ML-KEM-512",
-      "family": "ML-KEM",
-      "type": "kem",
-      "standard": "FIPS 203",
+      "oid": "2.16.840.1.101.3.4.3.26",
       "security_category": 1,
       "status": "active",
-      "output_bytes": 64,
-      "keygen": "ML-KEM.KeyGen_internal",
+      "output_bytes": 48,
       "inputs": [
         {
-          "name": "d",
-          "bytes": 32
+          "name": "SK.seed",
+          "bytes": 16
         },
         {
-          "name": "z",
-          "bytes": 32
+          "name": "SK.prf",
+          "bytes": 16
+        },
+        {
+          "name": "PK.seed",
+          "bytes": 16
         }
       ]
     },
     {
-      "index": 17,
-      "name": "ML-KEM-768",
-      "family": "ML-KEM",
-      "type": "kem",
-      "standard": "FIPS 203",
+      "index": 307,
+      "name": "SLH-DSA-SHAKE-128f",
+      "family": "SLH-DSA",
+      "oid": "2.16.840.1.101.3.4.3.27",
+      "security_category": 1,
+      "status": "active",
+      "output_bytes": 48,
+      "inputs": [
+        {
+          "name": "SK.seed",
+          "bytes": 16
+        },
+        {
+          "name": "SK.prf",
+          "bytes": 16
+        },
+        {
+          "name": "PK.seed",
+          "bytes": 16
+        }
+      ]
+    },
+    {
+      "index": 308,
+      "name": "SLH-DSA-SHAKE-192s",
+      "family": "SLH-DSA",
+      "oid": "2.16.840.1.101.3.4.3.28",
       "security_category": 3,
       "status": "active",
-      "output_bytes": 64,
-      "keygen": "ML-KEM.KeyGen_internal",
+      "output_bytes": 72,
       "inputs": [
         {
-          "name": "d",
-          "bytes": 32
+          "name": "SK.seed",
+          "bytes": 24
         },
         {
-          "name": "z",
-          "bytes": 32
+          "name": "SK.prf",
+          "bytes": 24
+        },
+        {
+          "name": "PK.seed",
+          "bytes": 24
         }
       ]
     },
     {
-      "index": 18,
-      "name": "ML-KEM-1024",
-      "family": "ML-KEM",
-      "type": "kem",
-      "standard": "FIPS 203",
+      "index": 309,
+      "name": "SLH-DSA-SHAKE-192f",
+      "family": "SLH-DSA",
+      "oid": "2.16.840.1.101.3.4.3.29",
+      "security_category": 3,
+      "status": "active",
+      "output_bytes": 72,
+      "inputs": [
+        {
+          "name": "SK.seed",
+          "bytes": 24
+        },
+        {
+          "name": "SK.prf",
+          "bytes": 24
+        },
+        {
+          "name": "PK.seed",
+          "bytes": 24
+        }
+      ]
+    },
+    {
+      "index": 310,
+      "name": "SLH-DSA-SHAKE-256s",
+      "family": "SLH-DSA",
+      "oid": "2.16.840.1.101.3.4.3.30",
       "security_category": 5,
       "status": "active",
-      "output_bytes": 64,
-      "keygen": "ML-KEM.KeyGen_internal",
+      "output_bytes": 96,
       "inputs": [
         {
-          "name": "d",
+          "name": "SK.seed",
           "bytes": 32
         },
         {
-          "name": "z",
+          "name": "SK.prf",
+          "bytes": 32
+        },
+        {
+          "name": "PK.seed",
           "bytes": 32
         }
       ]
     },
     {
-      "index": 19,
+      "index": 311,
+      "name": "SLH-DSA-SHAKE-256f",
+      "family": "SLH-DSA",
+      "oid": "2.16.840.1.101.3.4.3.31",
+      "security_category": 5,
+      "status": "active",
+      "output_bytes": 96,
+      "inputs": [
+        {
+          "name": "SK.seed",
+          "bytes": 32
+        },
+        {
+          "name": "SK.prf",
+          "bytes": 32
+        },
+        {
+          "name": "PK.seed",
+          "bytes": 32
+        }
+      ]
+    },
+    {
+      "index": 400,
       "name": "FN-DSA-512",
+      "family": "FN-DSA",
       "status": "reserved",
       "note": "Reserved pending a final FIPS 206; output_bytes and inputs are not yet defined."
     },
     {
-      "index": 20,
+      "index": 401,
       "name": "FN-DSA-1024",
+      "family": "FN-DSA",
       "status": "reserved",
       "note": "Reserved pending a final FIPS 206; output_bytes and inputs are not yet defined."
     }

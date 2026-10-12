@@ -48,13 +48,20 @@ def load_registry(path=REGISTRY_PATH):
         return json.load(f)
 
 
+def resolve(registry, entry):
+    """Return an entry with its family's shared fields (type, standard, keygen) merged in."""
+    family = next(f for f in registry["families"] if f["name"] == entry["family"])
+    shared = {k: v for k, v in family.items() if k not in ("block", "name")}
+    return {**shared, **entry}
+
+
 def scheme(registry, index):
-    """Return the active registry entry for a scheme index."""
+    """Return the active registry entry for a scheme index, with family fields resolved."""
     for entry in registry["entries"]:
         if entry["index"] == index:
             if entry["status"] != "active":
                 raise DerivationError(f"scheme {index} is {entry['status']}")
-            return entry
+            return resolve(registry, entry)
     raise DerivationError(f"scheme {index} is not in the registry")
 
 

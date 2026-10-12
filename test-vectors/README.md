@@ -30,12 +30,7 @@ independent source:
 | Public-key encoding | RustCrypto `ml-dsa` 0.1.1 and `slh-dsa` 0.2.0-rc.5 match `@noble/post-quantum` 0.6.1 on the Project Eleven seeds |
 
 The composed pqhd output (application `505153'` plus the DRNG) has so far been
-produced by this one implementation only. A second implementation should
-reproduce these files before v1.0. The Rust `pqseed` crate reproduces the
-seeds and public-key hashes for schemes 0, 2, 3, and 4.
-
-`public_key_sha256` is computed with RustCrypto `ml-dsa` 0.1.1 and `slh-dsa`
-0.2.0-rc.5 from the `output` field. ML-KEM cases have no public-key hashes yet.
+produced by this one implementation only.
 
 Regenerate with `python3 gen_vectors.py [--pk-hashes <file>]` from
 `reference/python`; without the flag, existing hashes are kept. The test suite

@@ -24,27 +24,42 @@ Generated from [`registry.json`](registry.json) by
 `reference/python/gen_vectors.py`; edit the JSON, not this file.
 
 Scheme indices are the `<scheme>'` level of
-`m/83696968'/505153'/<coin_type>'/<scheme>'/<account>'/<index>'`. `L` is the
-number of bytes read from BIP-85-DRNG-SHAKE256, split into the key-generation
-inputs in the order listed. Indices are append-only and never reused.
+`m/83696968'/505153'/<coin_type>'/<scheme>'/<account>'/<index>'`. Each family
+owns a block of 100 indices starting at `100 * block`, and its parameter sets
+are numbered within the block. `L` is the number of bytes read from
+BIP-85-DRNG-SHAKE256, split into the key-generation inputs in the order listed.
+Indices are append-only and never reused.
 
-| Index | Scheme | Standard | Category | Status | `L` | Key generation inputs |
-|------:|--------|----------|:--------:|--------|----:|-----------------------|
+## Families
+
+| Block | Indices | Family | Type | Standard | Key generation |
+|------:|--------:|--------|------|----------|----------------|
+{families}
+
+## Parameter sets
+
+| Index | Scheme | OID | Category | Status | `L` | Key generation inputs |
+|------:|--------|-----|:--------:|--------|----:|-----------------------|
 """
 
 
 def registry_table(registry):
+    size = registry["block_size"]
+    families = "\n".join(
+        f"| {f['block']} | {f['block'] * size}-{f['block'] * size + size - 1} | {f['name']} | "
+        f"{f['type']} | {f['standard']} | {'`' + f['keygen'] + '`' if 'keygen' in f else ''} |"
+        for f in registry["families"])
     rows = []
     for e in registry["entries"]:
         if e["status"] == "active":
             inputs = " \\|\\| ".join(f"{i['name']} ({i['bytes']})" for i in e["inputs"])
-            rows.append(f"| {e['index']} | {e['name']} | {e['standard']} | "
+            rows.append(f"| {e['index']} | {e['name']} | {e['oid']} | "
                         f"{e['security_category']} | {e['status']} | {e['output_bytes']} | "
-                        f"`{e['keygen']}`: {inputs} |")
+                        f"{inputs} |")
         else:
-            rows.append(f"| {e['index']} | {e.get('name', '')} | | | {e['status']} | | "
-                        f"{e.get('note', '')} |")
-    return TABLE_HEADER + "\n".join(rows) + "\n"
+            rows.append(f"| {e['index']} | {e.get('name', '')} | {e.get('oid', '')} | | "
+                        f"{e['status']} | | {e.get('note', '')} |")
+    return TABLE_HEADER.format(families=families) + "\n".join(rows) + "\n"
 
 
 MNEMONICS = [

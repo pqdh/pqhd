@@ -111,8 +111,24 @@ class Registry(unittest.TestCase):
         self.registry = pqhd.load_registry()
         self.entries = self.registry["entries"]
 
-    def test_indices_are_contiguous_from_zero(self):
-        self.assertEqual([e["index"] for e in self.entries], list(range(len(self.entries))))
+    def test_indices_are_sorted_and_unique(self):
+        indices = [e["index"] for e in self.entries]
+        self.assertEqual(indices, sorted(set(indices)))
+
+    def test_entries_are_in_their_family_block(self):
+        size = self.registry["block_size"]
+        blocks = {f["name"]: f["block"] for f in self.registry["families"]}
+        self.assertEqual(len(set(blocks.values())), len(blocks))
+        self.assertNotIn(0, blocks.values())
+        for name, block in blocks.items():
+            indices = [e["index"] for e in self.entries if e["family"] == name]
+            # Contiguous from the block start, so no index is skipped or left ambiguous.
+            self.assertEqual(indices, list(range(block * size, block * size + len(indices))))
+            self.assertLessEqual(len(indices), size)
+
+    def test_oids_are_unique(self):
+        oids = [e["oid"] for e in self.entries if "oid" in e]
+        self.assertEqual(len(oids), len(set(oids)))
 
     def test_app_number(self):
         self.assertEqual(self.registry["app"], pqhd.PQHD_APP)
@@ -126,7 +142,8 @@ class Registry(unittest.TestCase):
             if e["status"] != "active":
                 self.assertIn(e["status"], ("reserved", "deprecated"))
                 continue
-            for field in ("name", "family", "type", "standard", "security_category",
+            e = pqhd.resolve(self.registry, e)
+            for field in ("name", "family", "oid", "type", "standard", "security_category",
                           "output_bytes", "keygen", "inputs"):
                 self.assertIn(field, e, f"{e['index']} missing {field}")
             self.assertEqual(sum(i["bytes"] for i in e["inputs"]), e["output_bytes"])
