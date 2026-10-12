@@ -45,6 +45,7 @@ Projects and organizations that support or implement pqhd. To be listed, open a 
 | Supporter | Role |
 |---|---|
 | [iqlusion](https://github.com/iqlusioninc) | Implementer: [`pqseed`](https://github.com/iqlusioninc/crates/tree/main/pqseed) Rust crate |
+| [Project Eleven](https://www.projecteleven.com) | Originator and co-author: [post-quantum keys from a 24-word seed phrase](https://www.projecteleven.com/blog/generating-post-quantum-keypairs-from-a-single-24word-seed-phrase) |
 
 ## License
 
