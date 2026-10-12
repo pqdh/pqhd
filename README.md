@@ -21,6 +21,21 @@ m/83696968'/505153'/<coin_type>'/<scheme>'/<account>'/<index>'
 
 Every level is hardened. The BIP-85 entropy at the derived node seeds a SHAKE256 stream (BIP-85-DRNG-SHAKE256), and the registry says how many bytes each scheme reads and how they split into its key-generation inputs. See the [specification](spec/README.md).
 
+## Registry
+
+Each scheme family owns a block of 100 indices, and its parameter sets are numbered within the block.
+
+| Indices | Schemes |
+|---|---|
+| 100-102 | ML-KEM-512, ML-KEM-768, ML-KEM-1024 (key encapsulation, for encryption) |
+| 200-202 | ML-DSA-44, ML-DSA-65, ML-DSA-87 |
+| 300-311 | SLH-DSA, all twelve SHA2 and SHAKE parameter sets |
+| 400-401 | Reserved for FN-DSA-512 and FN-DSA-1024, pending FIPS 206 |
+
+This covers every final NIST post-quantum signature standard that suits seed-based derivation, plus ML-KEM for encryption. Stateful hash-based signatures (LMS/XMSS, SP 800-208) are excluded because SP 800-208 forbids exporting their key material and a mnemonic can't restore their state; see the [spec](spec/README.md#coverage-and-exclusions).
+
+Full table: [`registry/README.md`](registry/README.md).
+
 ## Repository
 
 | Path | Contents |

@@ -9,7 +9,7 @@ One directory per language.
 ```sh
 cd python
 python3 -m unittest test_pqhd
-python3 pqhd.py "<24 words>" "" 133 0 0 0   # mnemonic, passphrase, coin_type, scheme, account, index
+python3 pqhd.py "<24 words>" "" 133 200 0 0 # mnemonic, passphrase, coin_type, scheme, account, index
 ```
 
 `python/english.txt` is the BIP-39 English wordlist from

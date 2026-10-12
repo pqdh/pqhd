@@ -114,38 +114,83 @@ scheme, including those with `L <= 64`, so there is a single procedure.
 
 Split `output` into the scheme's `inputs`, consecutively and in registry order,
 and call the scheme's deterministic key-generation function, also named in the
-registry.
+registry. For example:
+
+- ML-DSA: `ML-DSA.KeyGen_internal(ξ)` with `ξ = output[0..32]` (FIPS 204).
+- SLH-DSA with security parameter `n`:
+  `slh_keygen_internal(SK.seed, SK.prf, PK.seed)` with the three `n`-byte
+  chunks of `output`, in that order (FIPS 205).
+- ML-KEM: `ML-KEM.KeyGen_internal(d, z)` with `d = output[0..32]` and
+  `z = output[32..64]` (FIPS 203).
 
 The registry, not this document, is authoritative for `L`, the input layout,
 and the key-generation function of each scheme.
 
 ## Registry
 
-The [registry] assigns scheme indices. Each entry has:
+The [registry] assigns scheme indices in blocks. Each scheme family, such as
+ML-DSA, owns a block of `block_size` (100) consecutive indices starting at
+`100 * block`, and each of its parameter sets takes the next free index in that
+block. ML-KEM is block 1 (indices 100-199), ML-DSA block 2, SLH-DSA block 3,
+and FN-DSA block 4. Block 0 is never assigned.
 
-| Field | Meaning |
-|-------|---------|
-| `index` | Scheme index, the `scheme'` path level |
-| `name` | Scheme and parameter set |
-| `family` | Scheme family, e.g. `ML-DSA` |
+Fields shared by every parameter set of a family are stated once, on the
+family:
+
+| Family field | Meaning |
+|--------------|---------|
+| `block` | Block number; the family's indices are `100 * block` to `100 * block + 99` |
+| `name` | Family name, e.g. `ML-DSA` |
 | `type` | `signature` or `kem` |
 | `standard` | The defining standard |
+| `keygen` | The deterministic key-generation function, absent until the standard is final |
+
+Each parameter set is an entry:
+
+| Entry field | Meaning |
+|-------------|---------|
+| `index` | Scheme index, the `scheme'` path level |
+| `name` | Scheme and parameter set |
+| `family` | Name of its family |
+| `oid` | The parameter set's object identifier, where one is assigned |
 | `security_category` | NIST security category |
 | `status` | `active`, `reserved`, or `deprecated` |
 | `output_bytes` | `L`, the number of DRNG bytes to read |
-| `keygen` | The deterministic key-generation function |
 | `inputs` | Ordered list of `{name, bytes}`; lengths sum to `output_bytes` |
 
 Rules:
 
-1. Indices are assigned sequentially, are append-only, and are never reused or
-   reassigned, including after deprecation.
-2. Only `active` entries may be derived. `reserved` entries hold an index for a
+1. A new family takes the next unused block. A new parameter set takes the next
+   unused index in its family's block. If a family fills its block, it is
+   assigned an additional block.
+2. Indices are append-only and are never reused or reassigned, including after
+   deprecation.
+3. Only `active` entries may be derived. `reserved` entries hold an index for a
    scheme whose standard or input layout is not final.
-3. An entry becomes `active` only with test vectors covering it.
+4. An entry becomes `active` only with test vectors covering it.
 
-New schemes are proposed by pull request adding a registry entry and test
-vectors.
+New schemes are proposed by pull request adding a registry entry, and a family
+if needed, with test vectors.
+
+### Coverage and exclusions
+
+For signatures, the registry covers every final NIST post-quantum signature
+standard suitable for seed-based derivation: ML-DSA (FIPS 204) and SLH-DSA
+(FIPS 205), all parameter sets. For encryption, it covers the NIST
+key-encapsulation mechanism ML-KEM (FIPS 203), so wallets can derive keys for
+receiving encrypted data from the same mnemonic. A KEM key and a signature key
+never share a path, because they have different scheme indices.
+
+- **FN-DSA** (FIPS 206) holds reserved indices until FIPS 206 is final. Its key
+  generation consumes a variable amount of randomness, so its entries may need
+  to read the DRNG stream on demand instead of a fixed `L`.
+- **Stateful hash-based signatures** (LMS, HSS, XMSS, and XMSS^MT; NIST
+  SP 800-208) are not eligible. SP 800-208 "requires that key and signature
+  generation be performed in hardware cryptographic modules that do not allow
+  secret keying material to be exported, even in encrypted form", which
+  mnemonic backup contradicts by design. A mnemonic also cannot restore the
+  one-time-signature state, so a restored wallet could reuse a one-time key,
+  which enables forgery.
 
 ## Relationship to Project Eleven's scheme
 
@@ -197,6 +242,7 @@ test vector README for what each field has been independently checked against.
 - [BIP-85]: Deterministic Entropy From BIP32 Keychains, including BIP-85-DRNG-SHAKE256
 - [SLIP-44]: Registered coin types for BIP-0044
 - FIPS 202 (SHA-3 and SHAKE), FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA)
+- [NIST SP 800-208]: Recommendation for Stateful Hash-Based Signature Schemes
 - [Project Eleven: Generating Post-Quantum Keypairs from a Single 24-Word Seed Phrase][p11]
 
 [registry]: ../registry/README.md
@@ -206,4 +252,5 @@ test vector README for what each field has been independently checked against.
 [BIP-44]: https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki
 [BIP-85]: https://github.com/bitcoin/bips/blob/master/bip-0085.mediawiki
 [SLIP-44]: https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+[NIST SP 800-208]: https://doi.org/10.6028/NIST.SP.800-208
 [p11]: https://www.projecteleven.com/blog/generating-post-quantum-keypairs-from-a-single-24word-seed-phrase
