@@ -43,7 +43,7 @@ RFC 2119. `||` is byte concatenation. `x'` denotes the hardened index
 | `mnemonic` | A BIP-39 mnemonic of exactly 24 words (256 bits of entropy) |
 | `passphrase` | A BIP-39 passphrase, possibly empty |
 | `coin_type` | The chain's [SLIP-44] coin type |
-| `scheme` | A scheme index with status `active` in the [registry] |
+| `scheme` | A scheme index with status `active` or `deprecated` in the [registry] |
 | `account` | Account number, as in BIP-44 |
 | `index` | Key index within the account |
 
@@ -165,8 +165,10 @@ Rules:
    assigned an additional block.
 2. Indices are append-only and are never reused or reassigned, including after
    deprecation.
-3. Only `active` entries may be derived. `reserved` entries hold an index for a
-   scheme whose standard or input layout is not final.
+3. `reserved` entries hold an index for a scheme whose standard or input layout
+   is not final, and MUST NOT be derived. `deprecated` entries MUST remain
+   derivable so existing keys can be recovered from the mnemonic; wallets
+   SHOULD NOT generate new keys under them.
 4. An entry becomes `active` only with test vectors covering it.
 
 New schemes are proposed by pull request adding a registry entry, and a family
@@ -191,14 +193,6 @@ never share a path, because they have different scheme indices.
   mnemonic backup contradicts by design. A mnemonic also cannot restore the
   one-time-signature state, so a restored wallet could reuse a one-time key,
   which enables forgery.
-
-## Relationship to Project Eleven's scheme
-
-Project Eleven derives keys at `m/83696968'/503131'/alg'` and truncates the
-BIP-85 entropy instead of using the DRNG. pqhd differs in application number,
-path depth, and expansion, so **pqhd keys are never equal to Project Eleven
-keys**. Wallets supporting both MUST keep them
-distinct.
 
 ## Security considerations
 
@@ -229,7 +223,7 @@ distinct.
 
 ## Test vectors
 
-Every active registry entry has a vector file in [`test-vectors/`]. Each case
+Every active or deprecated registry entry has a vector file in [`test-vectors/`]. Each case
 gives the mnemonic, passphrase, seed, path, BIP-85 entropy, DRNG output, split
 inputs and, where available, the SHA-256 of the encoded public key. See the
 test vector README for what each field has been independently checked against.
@@ -243,7 +237,6 @@ test vector README for what each field has been independently checked against.
 - [SLIP-44]: Registered coin types for BIP-0044
 - FIPS 202 (SHA-3 and SHAKE), FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA)
 - [NIST SP 800-208]: Recommendation for Stateful Hash-Based Signature Schemes
-- [Project Eleven: Generating Post-Quantum Keypairs from a Single 24-Word Seed Phrase][p11]
 
 [registry]: ../registry/README.md
 [`test-vectors/`]: ../test-vectors/
@@ -253,4 +246,3 @@ test vector README for what each field has been independently checked against.
 [BIP-85]: https://github.com/bitcoin/bips/blob/master/bip-0085.mediawiki
 [SLIP-44]: https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 [NIST SP 800-208]: https://doi.org/10.6028/NIST.SP.800-208
-[p11]: https://www.projecteleven.com/blog/generating-post-quantum-keypairs-from-a-single-24word-seed-phrase

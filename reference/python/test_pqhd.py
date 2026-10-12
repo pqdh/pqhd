@@ -3,6 +3,7 @@
     python3 -m unittest test_pqhd     (from reference/python)
 """
 
+import copy
 import hashlib
 import json
 import os
@@ -137,10 +138,10 @@ class Registry(unittest.TestCase):
         names = [e["name"] for e in self.entries if "name" in e]
         self.assertEqual(len(names), len(set(names)))
 
-    def test_active_entries_are_complete(self):
+    def test_derivable_entries_are_complete(self):
         for e in self.entries:
-            if e["status"] != "active":
-                self.assertIn(e["status"], ("reserved", "deprecated"))
+            self.assertIn(e["status"], ("active", "reserved", "deprecated"))
+            if e["status"] == "reserved":
                 continue
             e = pqhd.resolve(self.registry, e)
             for field in ("name", "family", "oid", "type", "standard", "security_category",
@@ -148,12 +149,20 @@ class Registry(unittest.TestCase):
                 self.assertIn(field, e, f"{e['index']} missing {field}")
             self.assertEqual(sum(i["bytes"] for i in e["inputs"]), e["output_bytes"])
 
-    def test_reserved_and_inactive_schemes_cannot_derive(self):
+    def test_reserved_schemes_cannot_derive(self):
         seed = pqhd.bip39_seed(ABANDON_ART)
         for e in self.entries:
-            if e["status"] != "active":
+            if e["status"] == "reserved":
                 with self.assertRaises(pqhd.DerivationError):
                     pqhd.derive(seed, 0, e["index"], 0, 0, self.registry)
+
+    def test_deprecated_schemes_remain_derivable(self):
+        seed = pqhd.bip39_seed(ABANDON_ART)
+        registry = copy.deepcopy(self.registry)
+        entry = next(e for e in registry["entries"] if e["status"] == "active")
+        expected = pqhd.derive(seed, 0, entry["index"], 0, 0, registry)[1:]
+        entry["status"] = "deprecated"
+        self.assertEqual(pqhd.derive(seed, 0, entry["index"], 0, 0, registry)[1:], expected)
 
 
 class Vectors(unittest.TestCase):
@@ -163,9 +172,9 @@ class Vectors(unittest.TestCase):
 
     def test_vector_files_match_reference(self):
         registry = pqhd.load_registry()
-        active = {e["index"] for e in registry["entries"] if e["status"] == "active"}
+        derivable = {e["index"] for e in registry["entries"] if e["status"] != "reserved"}
         files = {int(f[:-5]) for f in os.listdir(gen_vectors.OUT_DIR) if f.endswith(".json")}
-        self.assertEqual(files, active)
+        self.assertEqual(files, derivable)
         for entry, cases in gen_vectors.cases(registry):
             path = os.path.join(gen_vectors.OUT_DIR, f"{entry['index']}.json")
             with open(path, encoding="utf-8") as f:

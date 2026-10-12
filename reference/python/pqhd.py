@@ -56,10 +56,11 @@ def resolve(registry, entry):
 
 
 def scheme(registry, index):
-    """Return the active registry entry for a scheme index, with family fields resolved."""
+    """Return the derivable (active or deprecated) registry entry for a scheme index,
+    with family fields resolved. Deprecated entries stay derivable for recovery."""
     for entry in registry["entries"]:
         if entry["index"] == index:
-            if entry["status"] != "active":
+            if entry["status"] == "reserved":
                 raise DerivationError(f"scheme {index} is {entry['status']}")
             return resolve(registry, entry)
     raise DerivationError(f"scheme {index} is not in the registry")

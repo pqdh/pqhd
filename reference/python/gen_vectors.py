@@ -51,7 +51,7 @@ def registry_table(registry):
         for f in registry["families"])
     rows = []
     for e in registry["entries"]:
-        if e["status"] == "active":
+        if e["status"] != "reserved":
             inputs = " \\|\\| ".join(f"{i['name']} ({i['bytes']})" for i in e["inputs"])
             rows.append(f"| {e['index']} | {e['name']} | {e['oid']} | "
                         f"{e['security_category']} | {e['status']} | {e['output_bytes']} | "
@@ -79,7 +79,7 @@ SCOPES = [(0, 0, 0), (133, 0, 0), (60, 1, 7)]
 
 def cases(registry):
     for entry in registry["entries"]:
-        if entry["status"] != "active":
+        if entry["status"] == "reserved":
             continue
         out = []
         for phrase, passphrase in MNEMONICS:
@@ -131,13 +131,14 @@ def main(argv):
             with open(path, encoding="utf-8") as f:
                 for case in json.load(f)["cases"]:
                     if "public_key_sha256" in case:
-                        existing[(case["seed"], case["path"])] = case["public_key_sha256"]
+                        existing[case["output"]] = case["public_key_sha256"]
         for n, case in enumerate(out):
             if (entry["index"], n) in hashes:
                 case["public_key_sha256"] = hashes[(entry["index"], n)]
-            elif (case["seed"], case["path"]) in existing:
-                # Keep hashes from an earlier run when none are supplied.
-                case["public_key_sha256"] = existing[(case["seed"], case["path"])]
+            elif case["output"] in existing:
+                # Keep hashes from an earlier run when none are supplied, but only
+                # for unchanged key-generation inputs.
+                case["public_key_sha256"] = existing[case["output"]]
         doc = {
             "scheme": entry["index"],
             "name": entry["name"],
